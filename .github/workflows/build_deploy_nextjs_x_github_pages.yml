@@ -11,14 +11,14 @@ on:
   
 jobs:
   codeql-scan:
-    uses: ./.github/workflows/security/codeql_security_scan_job.yml
+    uses: ./.github/workflows/codeql_security_scan_job.yml
     with:
       language: ${{ inputs.language }}
 
   build:
-    uses: ./.github/workflows/build_publish/react/build_react_job.yml
+    uses: ./.github/workflows/build_react_job.yml
     needs: codeql-scan # Ensures the build only runs if the CodeQL scan passes
 
   deploy:
-    uses: ./.github/workflows/deploy/deploy_github_pages_job.yml
-    needs: build # Ensures the deploy only runs if the build passes    
+    uses: ./.github/workflows/deploy_github_pages_job.yml
+    needs: build # Ensures the deploy only runs if the build passes

@@ -5,6 +5,7 @@ on:
     inputs:
       language:
         description: 'Programming language to scan (e.g., javascript, python, etc.)'
+        type: string
         required: true
         default: 'javascript'
 
