@@ -7,11 +7,11 @@ on:
         description: 'Programming language to scan (e.g., javascript, python, etc.)'
         type: string
         required: false
-        default: 'javascript'
+        default: 'typescript'
 
 jobs:
   codeql-scan:
-    name: CodeQL Vulnerability Scan
+    name: Vulnerability Scan
     runs-on: ubuntu-latest
 
     steps:
