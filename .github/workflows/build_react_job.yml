@@ -12,7 +12,6 @@ on:
 
 jobs:
   build:
-    needs: codeql-scan 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
