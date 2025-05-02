@@ -6,7 +6,7 @@ on:
       language:
         description: 'Programming language to scan (e.g., javascript, python, etc.)'
         type: string
-        required: true
+        required: false
         default: 'javascript'
 
 jobs:
