@@ -28,4 +28,4 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           # Specify the path to the artifact or directory to deploy
-          path: ${{ github.event.inputs.build-directory }}
+          path: ${{ inputs.build-directory }}

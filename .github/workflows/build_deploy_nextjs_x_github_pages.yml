@@ -13,7 +13,7 @@ jobs:
   codeql-scan:
     uses: ./.github/workflows/security/codeql_security_scan_job.yml
     with:
-      language: ${{ github.event.inputs.language }}
+      language: ${{ inputs.language }}
 
   build:
     uses: ./.github/workflows/build_publish/react/build_react_job.yml
