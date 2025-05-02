@@ -9,6 +9,9 @@ on:
         required: false
         default: 'typescript'
 
+permissions:
+  security-events: write
+
 jobs:
   codeql-scan:
     name: Codeql Vulnerability Scan
