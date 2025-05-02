@@ -1,0 +1,26 @@
+name: CodeQL Vulnerability Scan
+
+on:
+  workflow_dispatch:
+    inputs:
+      language:
+        description: 'Programming language to scan (e.g., javascript, python, etc.)'
+        required: true
+        default: 'javascript'
+
+jobs:
+  codeql-scan:
+    name: CodeQL Vulnerability Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v2
+        with:
+          languages: ${{ github.event.inputs.language }}
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v2
