@@ -11,7 +11,7 @@ on:
 
 jobs:
   codeql-scan:
-    name: Vulnerability Scan
+    name: Codeql Vulnerability Scan
     runs-on: ubuntu-latest
 
     steps:
