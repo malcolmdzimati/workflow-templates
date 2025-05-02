@@ -1,8 +1,7 @@
 name: Deploy site to GitHub Pages
 
 on:
-  # This makes it callable from other repos
-  workflow_dispatch:
+  workflow_call::
     inputs:
       build-directory:
         description: 'Directory to build (e.g., out, dist, etc.)'

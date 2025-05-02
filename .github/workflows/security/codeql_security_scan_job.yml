@@ -1,7 +1,7 @@
 name: CodeQL Vulnerability Scan
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       language:
         description: 'Programming language to scan (e.g., javascript, python, etc.)'
