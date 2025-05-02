@@ -1,16 +1,27 @@
-name: Deploy site github pages
+name: Deploy site to GitHub Pages
 
 on:
-  # this makes it callable from other repos
+  # This makes it callable from other repos
   workflow_dispatch:
 
 jobs:
+  deploy:
+    name: Deploy to GitHub Pages
+    runs-on: ubuntu-latest
+    needs: build # Ensure this job only runs after the build job succeeds
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
+    concurrency:
+      group: ${{ github.workflow }}-${{ github.ref }}
+      cancel-in-progress: true
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          # Specify the path to the artifact or directory to deploy
+          path: ./out
