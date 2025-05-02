@@ -2,10 +2,11 @@ name: Build Next.js site
 
 on:
   # this makes it callable from other repos
-  workflow_call::
+  workflow_call:
     inputs:
       build-directory:
         description: 'Directory to build (e.g., out, dist, etc.)'
+        type: string
         required: true
         default: './out'
 
