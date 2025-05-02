@@ -1,0 +1,26 @@
+name: Deploy next.js website to GitHub Pages
+
+description: |
+  This workflow deploys a next.js website to GitHub Pages using GitHub Actions. It includes a CodeQL security scan, builds the React application, and deploys it to GitHub Pages.
+
+on:
+  workflow_dispatch:
+    inputs:
+      language:
+        description: 'Programming language to scan (e.g., javascript, python, etc.)'
+        required: true
+        default: 'javascript'
+  
+jobs:
+  codeql-scan:
+    uses: security/codeql_security_scan_job.yml
+    with:
+      language: ${{ github.event.inputs.language }}
+
+  build:
+    uses: build_publish/react/build_react_job.yml
+    needs: codeql-scan # Ensures the build only runs if the CodeQL scan passes
+
+  deploy:
+    uses: deploy/deploy_github_pages_job.yml
+    needs: build # Ensures the deploy only runs if the build passes    
