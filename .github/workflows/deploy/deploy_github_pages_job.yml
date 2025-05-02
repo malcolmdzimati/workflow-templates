@@ -3,6 +3,11 @@ name: Deploy site to GitHub Pages
 on:
   # This makes it callable from other repos
   workflow_dispatch:
+    inputs:
+      build-directory:
+        description: 'Directory to build (e.g., out, dist, etc.)'
+        required: true
+        default: './out'
 
 jobs:
   deploy:
@@ -24,4 +29,4 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           # Specify the path to the artifact or directory to deploy
-          path: ./out
+          path: ${{ github.event.inputs.build-directory }}

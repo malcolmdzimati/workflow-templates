@@ -3,6 +3,11 @@ name: Build Next.js site
 on:
   # this makes it callable from other repos
   workflow_dispatch:
+    inputs:
+      build-directory:
+        description: 'Directory to build (e.g., out, dist, etc.)'
+        required: true
+        default: './out'
 
 jobs:
   build:
@@ -52,4 +57,4 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: ${{ github.event.inputs.build-directory }}
