@@ -1,40 +1,44 @@
-name: Build and Deploy Go App
+name: Build and Push Docker Image
 
 on:
-  # this makes it callable from other repos
   workflow_call:
     inputs:
       app-name:
-        description: 'name of the app'
+        description: 'Name of the Docker image/app'
         type: string
         required: true
       registry-username:
-        description: 'GitHub Container Registry username (GitHub username)'
+        description: 'Container registry username'
         type: string
         required: true
       working-directory:
-          description: 'working directory of the app'
-          type: string
-          required: true
-          default: '.'
+        description: 'Working directory for Docker context'
+        type: string
+        required: true
+        default: '.'
+      artifact-name:
+        description: 'Name of the artifact to download'
+        type: string
+        required: false
+        default: 'build-artifact'
 
 jobs:
-  build_push:
+  build_and_push:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout source code
         uses: actions/checkout@v4
 
       - name: Download build artifact
         uses: actions/download-artifact@v4
         with:
-          name: go-app
+          name: ${{ inputs.artifact-name }}
           path: ./build
 
       - name: Build Docker image
         working-directory: ${{inputs.working-directory}} 
-        run: docker build -t ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest .
+        run: docker build -t ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest ./build
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
