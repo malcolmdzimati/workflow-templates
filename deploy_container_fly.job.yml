@@ -1,0 +1,26 @@
+name: Deploy Container to fly.io
+
+on:
+  # this makes it callable from other repos
+  workflow_call:
+    inputs:
+      app-name:
+        description: 'name of the app'
+        type: string
+        required: true
+      registry-username:
+      description: 'GitHub Container Registry username (GitHub username)'
+      type: string
+      required: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Fly.io
+        uses: superfly/flyctl-actions@1.4
+        with:
+          args: "deploy --image ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest --remote-only"
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}

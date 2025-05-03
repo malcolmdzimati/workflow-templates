@@ -1,0 +1,32 @@
+name: Build and Deploy Go App
+
+on:
+  # this makes it callable from other repos
+  workflow_call:
+    inputs:
+      app-name:
+        description: 'name of the app'
+        type: string
+        required: true
+      registry-username:
+      description: 'GitHub Container Registry username (GitHub username)'
+      type: string
+      required: true
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build Docker image
+        run: docker build -t ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest .
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ inputs.registry-username }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push Docker image
+        run: docker push ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest
