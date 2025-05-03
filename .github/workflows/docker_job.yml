@@ -7,6 +7,10 @@ on:
         description: 'Name of the Docker image/app'
         type: string
         required: true
+      repo-name:
+        description: 'Name of the Docker image/app'
+        type: string
+        required: true
       registry-username:
         description: 'Container registry username'
         type: string
@@ -39,14 +43,8 @@ jobs:
       - name: Copy Dockerfile into build directory
         run: cp -r ${{ inputs.dockerfile-path }} ./
 
-      - name: Print the contents of the main directory
-        run: |
-          ls -la
-          cd app
-          ls -la
-
       - name: Build Docker image
-        run: docker build -t ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest ./
+        run: docker build -t ghcr.io/${{ inputs.registry-username }}/${{ inputs.repo-name }}/${{ inputs.app-name }}:latest ./
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
@@ -56,4 +54,4 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push Docker image
-        run: docker push ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest
+        run: docker push ghcr.io/${{ inputs.registry-username }}/${{ inputs.repo-name }}/${{ inputs.app-name }}:latest
