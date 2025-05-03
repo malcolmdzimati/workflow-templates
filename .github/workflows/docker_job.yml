@@ -34,7 +34,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.artifact-name }}
-          path: .
+          path: ./build
 
       - name: Copy Dockerfile into build directory
         run: cp -r ${{ inputs.dockerfile-path }} ./
