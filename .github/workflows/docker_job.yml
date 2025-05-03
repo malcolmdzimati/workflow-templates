@@ -12,6 +12,11 @@ on:
         description: 'GitHub Container Registry username (GitHub username)'
         type: string
         required: true
+      working-directory:
+          description: 'working directory of the app'
+          type: string
+          required: true
+          default: '.'
 
 jobs:
   build_push:
@@ -29,4 +34,5 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push Docker image
+        working-directory: ${{inputs.working-directory}} 
         run: docker push ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest
