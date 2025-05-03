@@ -2,12 +2,6 @@ name: Deploy site to GitHub Pages
 
 on:
   workflow_call:
-    inputs:
-      build-directory:
-        description: 'Directory to build (e.g., out, dist, etc.)'
-        required: false
-        type: string
-        default: './out'
 
 jobs:
   deploy:
@@ -23,5 +17,3 @@ jobs:
 
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
-        with:
-          path: ${{ inputs.build-directory }}
