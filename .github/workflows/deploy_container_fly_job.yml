@@ -9,9 +9,9 @@ on:
         type: string
         required: true
       registry-username:
-      description: 'GitHub Container Registry username (GitHub username)'
-      type: string
-      required: true
+        description: 'GitHub Container Registry username (GitHub username)'
+        type: string
+        required: true
 
 jobs:
   deploy:
