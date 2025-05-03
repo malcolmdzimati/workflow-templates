@@ -36,8 +36,10 @@ jobs:
           name: ${{ inputs.artifact-name }}
           path: ./build
 
+      - name: Copy Dockerfile into build directory
+        run: cp ./PropertyToolsByRotaBackend/Dockerfile ./build/
+
       - name: Build Docker image
-        working-directory: ${{inputs.working-directory}} 
         run: docker build -t ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest ./build
 
       - name: Log in to GitHub Container Registry
