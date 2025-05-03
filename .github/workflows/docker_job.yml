@@ -11,7 +11,7 @@ on:
         description: 'Container registry username'
         type: string
         required: true
-      working-directory:
+      dockerfile-path:
         description: 'Working directory for Docker context'
         type: string
         required: true
@@ -37,7 +37,7 @@ jobs:
           path: ./build
 
       - name: Copy Dockerfile into build directory
-        run: cp ./PropertyToolsByRotaBackend/Dockerfile ./build/
+        run: cp ${{ inputs.dockerfile-path }} ./build/
 
       - name: Build Docker image
         run: docker build -t ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest ./build
