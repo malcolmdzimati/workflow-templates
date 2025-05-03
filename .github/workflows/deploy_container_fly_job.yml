@@ -12,7 +12,9 @@ on:
         description: 'GitHub Container Registry username (GitHub username)'
         type: string
         required: true
-
+env:
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+  
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -25,5 +27,3 @@ jobs:
         uses: superfly/flyctl-actions@1.5
         with:
           args: "deploy --image ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest --remote-only"
-        env:
-          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
