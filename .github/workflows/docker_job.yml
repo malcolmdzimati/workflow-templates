@@ -24,6 +24,7 @@ jobs:
 
     steps:
       - name: Build Docker image
+        working-directory: ${{inputs.working-directory}} 
         run: docker build -t ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest .
 
       - name: Log in to GitHub Container Registry
@@ -34,5 +35,4 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Push Docker image
-        working-directory: ${{inputs.working-directory}} 
         run: docker push ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest
