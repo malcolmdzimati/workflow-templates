@@ -14,7 +14,7 @@ on:
         required: true
 
 jobs:
-  docker:
+  build_push:
     runs-on: ubuntu-latest
 
     steps:
