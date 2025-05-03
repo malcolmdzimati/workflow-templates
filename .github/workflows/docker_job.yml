@@ -37,7 +37,7 @@ jobs:
           path: ./build
 
       - name: Copy Dockerfile into build directory
-        run: cp ${{ inputs.dockerfile-path }} ./build/
+        run: cp -r ${{ inputs.dockerfile-path }} ./build/
 
       - name: Build Docker image
         run: docker build -t ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest ./build
