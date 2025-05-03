@@ -8,6 +8,11 @@ on:
         description: 'name of the app'
         type: string
         required: true
+      working-directory:
+        description: 'working directory of the app'
+        type: string
+        required: true
+        default: '.'
 
 jobs:
   build:
@@ -33,7 +38,7 @@ jobs:
             ${{ runner.os }}-go-
 
       - name: Build Go binary
-        run: go build -o ${{inputs.app-name}} ./cmd/${{inputs.app-name}}
+        run: go build -o ${{inputs.app-name}} ${{inputs.app-name}}/cmd/${{inputs.app-name}}
 
       #- name: Run tests
       #  run: go test ./...
