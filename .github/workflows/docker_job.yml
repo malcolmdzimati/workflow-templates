@@ -39,6 +39,9 @@ jobs:
       - name: Copy Dockerfile into build directory
         run: cp -r ${{ inputs.dockerfile-path }} ./
 
+      - name: Print the contents of the main directory
+        run: ls -la
+
       - name: Build Docker image
         run: docker build -t ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest ./
 
