@@ -34,13 +34,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ inputs.artifact-name }}
-          path: ./build
+          path: .
 
       - name: Copy Dockerfile into build directory
-        run: cp -r ${{ inputs.dockerfile-path }} ./build/
+        run: cp -r ${{ inputs.dockerfile-path }} ./
 
       - name: Build Docker image
-        run: docker build -t ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest ./build
+        run: docker build -t ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest ./
 
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v3
