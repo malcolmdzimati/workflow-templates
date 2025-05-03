@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Deploy to Fly.io
-        uses: superfly/flyctl-actions@1.4
+        uses: superfly/flyctl-actions@1.5
         with:
           args: "deploy --image ghcr.io/${{ inputs.registry-username }}/${{ inputs.app-name }}:latest --remote-only"
         env:
