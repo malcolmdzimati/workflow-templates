@@ -38,7 +38,8 @@ jobs:
             ${{ runner.os }}-go-
 
       - name: Build Go binary
-        run: go build -o ${{inputs.app-name}} ${{inputs.working-directory}}/${{inputs.app-name}}/cmd
+        working-directory: ${{inputs.working-directory}} 
+        run: go build -o ${{inputs.app-name}} ./cmd
 
       #- name: Run tests
       #  run: go test ./...
