@@ -12,8 +12,6 @@ on:
         description: 'GitHub Container Registry username (GitHub username)'
         type: string
         required: true
-env:
-  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
 
 jobs:
   deploy:
@@ -24,5 +22,9 @@ jobs:
       - name: Setup flyctl
         uses: superfly/flyctl-actions/setup-flyctl@master
 
-      - name: Deploy
-        run: flyctl deploy --remote-only
+      - name: Deploy to Fly.io
+        uses: superfly/flyctl-actions@1.4
+        with:
+          args: "deploy -a propertytoolsbyrotabackend --image ghcr.io/malcolmdzimati/propertytoolsbyrotabackend:latest --remote-only"
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
