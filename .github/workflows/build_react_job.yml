@@ -14,6 +14,11 @@ on:
         type: string
         required: false
         default: 'build-artifact'
+      hosting-service:
+        description: 'Name of the artifact to download'
+        type: string
+        required: false
+        default: 'build-artifact'
 
 jobs:
   build:
@@ -60,7 +65,14 @@ jobs:
           PAGES_BASE_PATH: ${{ steps.setup_pages.outputs.base_path }}
 
       - name: Upload artifact
+        if: ${{ inputs.hosting-service == 'github-pages' }}
         uses: actions/upload-pages-artifact@v3
         with:
-          name: ${{ inputs.artifact-name }}
           path: ${{ inputs.build-directory }}
+
+      - name: Upload build artifact
+        if: ${{ inputs.hosting-service != 'github-pages' }}
+        uses: actions/upload-artifact@v4
+        with:
+            name: ${{ inputs.artifact-name }}
+            path: ${{inputs.build-directory}}
