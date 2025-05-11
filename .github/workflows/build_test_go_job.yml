@@ -18,12 +18,21 @@ on:
         type: string
         required: false
         default: 'build-artifact'
+      AUTH0_DOMAIN:
+        required: false
+        type: string
+      AUTH0_AUDIENCE:
+        required: false
+        type: string
 
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    env:
+      AUTH0_DOMAIN: ${{ inputs.AUTH0_DOMAIN }}
+      AUTH0_AUDIENCE: ${{ inputs.AUTH0_AUDIENCE }}
+      
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
