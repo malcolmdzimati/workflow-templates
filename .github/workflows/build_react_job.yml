@@ -19,6 +19,11 @@ on:
         type: string
         required: false
         default: 'github-pages'
+      working-directory:
+        description: 'working directory of the app'
+        type: string
+        required: true
+        default: ''
 
 jobs:
   build:
@@ -60,6 +65,7 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
 
       - name: Build with Next.js
+        working-directory: ${{inputs.working-directory}} 
         run: pnpm run build
         env:
           PAGES_BASE_PATH: ${{ steps.setup_pages.outputs.base_path }}
