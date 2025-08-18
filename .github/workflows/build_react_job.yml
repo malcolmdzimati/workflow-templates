@@ -46,8 +46,10 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+        working-directory: ${{inputs.working-directory}}
 
       - name: Setup Pages
+        if: ${{ inputs.hosting-service == 'github-pages' }}
         id: setup_pages
         uses: actions/configure-pages@v5
         with:
