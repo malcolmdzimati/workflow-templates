@@ -22,7 +22,7 @@ on:
       working-directory:
         description: 'working directory of the app'
         type: string
-        required: true
+        required: false
         default: ''
 
 jobs:
@@ -45,8 +45,8 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install
         working-directory: ${{inputs.working-directory}}
+        run: pnpm install
 
       - name: Setup Pages
         if: ${{ inputs.hosting-service == 'github-pages' }}
