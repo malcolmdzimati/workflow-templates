@@ -66,21 +66,27 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/pnpm-lock.yaml') }}-
 
-      - name: Build with Next.js
+      - name: Build with Next.js (GitHub Pages)
+        if: ${{ inputs.hosting-service == 'github-pages' }}
         working-directory: ${{inputs.working-directory}} 
         run: pnpm run build
         env:
           PAGES_BASE_PATH: ${{ steps.setup_pages.outputs.base_path }}
 
-      - name: Upload artifact
+      - name: Build with Next.js (Other)
+        if: ${{ inputs.hosting-service != 'github-pages' }}
+        working-directory: ${{inputs.working-directory}} 
+        run: pnpm run build
+
+      - name: Upload artifact (GitHub Pages)
         if: ${{ inputs.hosting-service == 'github-pages' }}
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ inputs.build-directory }}
+          path: ${{ inputs.working-directory }}/${{ inputs.build-directory }}
 
       - name: Upload build artifact
         if: ${{ inputs.hosting-service != 'github-pages' }}
         uses: actions/upload-artifact@v4
         with:
-            name: ${{ inputs.artifact-name }}
-            path: ${{inputs.build-directory}}
+          name: ${{ inputs.artifact-name }}
+          path: ${{ inputs.working-directory }}/${{ inputs.build-directory }}
